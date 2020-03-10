@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class SimboxHttp {
 
-	private static boolean config_test = true;
+	private static boolean config_test = false;
     private static final Logger log = LoggerFactory.getLogger(SimboxHttp.class);
     private static final String TMT_BASE_URL = "https://tmt.fastweb.it/api/ticketSimboxFailure";
     //https://tmt.fastweb.it/api/ticketSimboxFailure?timestamp=1559779200&auth=2ba3b7d0f9381da4187c304483af4e88
