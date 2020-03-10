@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class SimboxHttp {
 
-	private static boolean config_test = false;
+	private static boolean config_test = true;
     private static final Logger log = LoggerFactory.getLogger(SimboxHttp.class);
     private static final String TMT_BASE_URL = "https://tmt.fastweb.it/api/ticketSimboxFailure";
     //https://tmt.fastweb.it/api/ticketSimboxFailure?timestamp=1559779200&auth=2ba3b7d0f9381da4187c304483af4e88
@@ -31,38 +31,6 @@ public class SimboxHttp {
     private static final String TMT_BASE_URL_TEST = "https://webapp-test.fastweb.it/tmt/api/ticketSimboxFailure";
     private static final String TMT_SECRET_KEY = "P181080-TMT-Tool";
 
-// (TODO) da cancellare codice precedente
-//    public boolean sendTicket(String fileTmt) throws Exception {
-//
-//        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-//
-//            String url = "/home/rco/inventia_w/failure_csv/";
-//
-//            HttpUriRequest request = RequestBuilder
-//                    .post(url)
-//                    .setEntity(new StringEntity(fileTmt, ContentType.TEXT_PLAIN))
-//                    .build();
-//
-//            log.info("Executing request " + request.getRequestLine());
-//
-//            final boolean[] statoResponse = {false};
-//
-//            ResponseHandler<String> responseHandler = response -> {
-//                int status = response.getStatusLine().getStatusCode();
-//                if (status >= 200 && status < 300) {
-//                    HttpEntity entity = response.getEntity();
-//                    statoResponse[0] = true;
-//                    return entity != null ? EntityUtils.toString(entity) : null;
-//                } else {
-//                    statoResponse[0] = false;
-//                    throw new ClientProtocolException("Unexpected response status: " + status);
-//                }
-//            };
-//            httpclient.execute(request, responseHandler);
-//
-//            return statoResponse[0];
-//        }
-//    }
     
     public boolean sendTicket(String fileTmt) throws Exception {
 

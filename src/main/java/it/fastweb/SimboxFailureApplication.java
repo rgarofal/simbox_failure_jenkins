@@ -30,6 +30,7 @@ public class SimboxFailureApplication {
 
         try {
         	dataConfig = new DataConfig();
+        	simboxFailureService = new SimboxFailureService();
         	sessionConfig = new SessionConfig(dataConfig);
             connection = dataConfig.getConnectionFromDb();
             session = sessionConfig.openSession(connection);
@@ -78,11 +79,15 @@ public class SimboxFailureApplication {
                     simboxFailureService.insertDb(newFileList, connection);
                 } else log.info("Non ci sono file da inserire a Db");
 
-                session.disconnect();
-                channelSftp.exit();
+//                session.disconnect();
+//                channelSftp.exit();
             }
         } catch (Exception e) {
             e.printStackTrace();
+            
+        } finally {
+        	session.disconnect();
+            channelSftp.exit();
         }
     }
 }

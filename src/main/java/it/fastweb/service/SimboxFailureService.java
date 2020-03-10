@@ -13,6 +13,7 @@ import java.sql.*;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 
 public class SimboxFailureService {
@@ -20,6 +21,9 @@ public class SimboxFailureService {
     private static final String QUERY_MAX_DATE = "SELECT max(date) date FROM sales.simbox_timestamp_idx s WHERE s.folder = 'failure_csv';";
     private static final String INSERT_FILE = "INSERT INTO sales.simbox_timestamps_idx (date, folder, filename, dl) VALUES (?,?,?,?)";
 
+    public SimboxFailureService() {
+    	
+    }
     public Date queryDate(Connection connection) {
 
         Statement stmt = null;
@@ -28,7 +32,9 @@ public class SimboxFailureService {
         try {
             stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY_MAX_DATE);
-            date = rs.getDate("date");
+            while (rs.next()) {
+              date = rs.getTimestamp("date");
+            }
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,21 +56,26 @@ public class SimboxFailureService {
             OutputStream out = null;
 
             in = channelSftp.get("/home/rco/inventia_w/failure_csv/" + ticketSingolo.getFilename());
-            out = new FileOutputStream(tmp);
+// codice precedente            
+//            out = new FileOutputStream(tmp);
+//
+//            byte[] buf = new byte[1024];
+//            int len;
+//
+//            while ((len = in.read(buf)) > 0) {
+//                out.write(buf, 0, len);
+//            }
+//            in.close();
+//            out.close();
+//
+//            Path p = Paths.get(tmp.getAbsolutePath());
+//            File file = new File(String.valueOf(p));
+//
+//            csvFile = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 
-            byte[] buf = new byte[1024];
-            int len;
+            csvFile = IOUtils.toString(in, StandardCharsets.UTF_8.name());
 
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
             in.close();
-            out.close();
-
-            Path p = Paths.get(tmp.getAbsolutePath());
-            File file = new File(String.valueOf(p));
-
-            csvFile = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
 
             SimboxHttp simboxHttp = new SimboxHttp();
             esitoResponse = simboxHttp.sendTicket(csvFile);

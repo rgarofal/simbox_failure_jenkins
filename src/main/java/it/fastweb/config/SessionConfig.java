@@ -47,7 +47,8 @@ public class SessionConfig {
             
             JSch jsch = new JSch();
 
-            String path_identity = writeResourceToFile("rco-sftp.ppk");
+            // codice precedente String path_identity = writeResourceToFile("rco-sftp.ppk");
+            String path_identity = getResourcePath("rco-sftp.ppk");
             jsch.addIdentity(path_identity);
             session = jsch.getSession(user, host, port);
             java.util.Properties config = new java.util.Properties();
@@ -62,7 +63,7 @@ public class SessionConfig {
         return session;
     }
 
-    private String writeResourceToFile(String resourceName) throws URISyntaxException, IOException {
+    private String getResourcePath(String resourceName) throws URISyntaxException, IOException {
 
         ClassLoader CLDR = getClass().getClassLoader();
         log.debug("Class loader = " + CLDR.toString());

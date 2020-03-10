@@ -16,7 +16,7 @@ public class DataConfig {
     private String username;
     private String password;
     private static final String QUERY_FIND_CONFIG_FOR_SESSION = "select * from rco_m0.api_configuration";
-    private static boolean config_test = false;
+    private static boolean config_test = true;
 
     private static final Logger log = LoggerFactory.getLogger(DataConfig.class);
 
