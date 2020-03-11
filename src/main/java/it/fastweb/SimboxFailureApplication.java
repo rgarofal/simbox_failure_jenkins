@@ -29,6 +29,8 @@ public class SimboxFailureApplication {
     public static void main(String[] args) {
 
         try {
+        	// per evitare problemi log4j su org.apache.http.client.protocol
+        	System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Jdk14Logger");
         	dataConfig = new DataConfig();
         	simboxFailureService = new SimboxFailureService();
         	sessionConfig = new SessionConfig(dataConfig);

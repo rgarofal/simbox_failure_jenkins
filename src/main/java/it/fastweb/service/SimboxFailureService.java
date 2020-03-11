@@ -19,7 +19,7 @@ import org.apache.commons.io.IOUtils;
 public class SimboxFailureService {
 
     private static final String QUERY_MAX_DATE = "SELECT max(date) date FROM sales.simbox_timestamp_idx s WHERE s.folder = 'failure_csv';";
-    private static final String INSERT_FILE = "INSERT INTO sales.simbox_timestamps_idx (date, folder, filename, dl) VALUES (?,?,?,?)";
+    private static final String INSERT_FILE = "INSERT INTO sales.simbox_timestamp_idx (date, folder, filename, dl) VALUES (?,?,?,?)";
 
     public SimboxFailureService() {
     	
